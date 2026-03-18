@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBA Sistemik Analiz</title>
+    <style>
+        :root { --kba-gold: #c5a059; --kba-dark: #1a252f; }
+        body { font-family: sans-serif; background: #f4f7f6; display: flex; justify-content: center; padding: 20px; }
+        .panel { max-width: 400px; width: 100%; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 6px solid var(--kba-gold); overflow: hidden; }
+        .header { background: var(--kba-dark); color: white; padding: 20px; text-align: center; }
+        .logo { font-size: 30px; font-weight: bold; color: var(--kba-gold); border: 2px solid var(--kba-gold); display: inline-block; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; margin-bottom: 5px; }
+        .content { padding: 20px; }
+        .step { display: none; }
+        .active { display: block; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 13px; color: #2c3e50; }
+        input, select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; background: var(--kba-gold); color: white; font-size: 16px; }
+        #report-result { background: #fffdf5; padding: 15px; border: 1px solid #f1e6b2; border-radius: 10px; line-height: 1.6; }
+        .footer { text-align: center; font-size: 10px; color: #999; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="panel">
+    <div class="header">
+        <div class="logo">KB</div>
+        <div style="font-size: 12px; letter-spacing: 2px;">SİSTEMİK ANALİZ</div>
+    </div>
+
+    <div class="content">
+        <div id="step1" class="step active">
+            <label>Sorgu Sahibi Adı ve Kod:</label>
+            <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+                <input type="text" id="n1" placeholder="İsim">
+                <input type="number" id="c1" placeholder="Kod">
+            </div>
+            <label>2. Kişi Adı ve Kod:</label>
+            <div style="display: flex; gap: 5px;">
+                <input type="text" id="n2" placeholder="İsim">
+                <input type="number" id="c2" placeholder="Kod">
+            </div>
+            <button class="btn" onclick="analizBaslat()">ANALİZİ BAŞLAT</button>
+        </div>
+
+        <div id="step2" class="step">
+            <p style="font-size: 14px; color: #555;">Sistem verileri işledi. Yaşanan temel sorunu seçin:</p>
+            <select id="hal-select"></select>
+            <button class="btn" onclick="itidalGec()">ŞİFAYI GÖR</button>
+        </div>
+
+        <div id="step3" class="step">
+            <p style="font-size: 14px; color: #555;">Denge için gerekli İtidal hali:</p>
+            <select id="itidal-select"></select>
+            <button class="btn" onclick="raporMühürle()">RAPORU TAMAMLA</button>
+        </div>
+
+        <div id="step4" class="step">
+            <div id="report-result"></div>
+            <p class="footer">© 2026 KBA Sistemik Analiz - Her Hakkı Mahfuzdur.</p>
+            <button class="btn" style="margin-top: 10px; background: #1a252f;" onclick="location.reload()">YENİ ANALİZ</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const db = {
+        gunler: ["Güneş", "Ay", "Mars", "Merkür", "Jüpiter", "Venüs", "Satürn"],
+        gezegenler: {
+            "Mars": { esma: "Ya Melik - Ya Kuddüs", ifrat: ["Baskıcılık", "Hükmedicilik"], tefrit: ["Güvensizlik", "Zayıflık"], itidal: ["Cesaret", "Cömertlik"] },
+            "Venüs": { esma: "Ya Latif - Ya Vedud", ifrat: ["Duygusal Şantaj", "Aşırı İstek"], tefrit: ["Sevgisizlik", "İçe Kapanma"], itidal: ["Şartsız Sevgi", "Hüsn-ü Zan"] },
